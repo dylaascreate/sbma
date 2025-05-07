@@ -19,7 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
     Text('Home', style: optionStyle),
     Text('Spaces', style: optionStyle),
     Text('Bookings', style: optionStyle),
-    Text('Profile', style: optionStyle),
+    Text('About', style: optionStyle),
   ];
 
   @override
@@ -49,7 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
               rippleColor: Colors.grey[300]!,
               hoverColor: Colors.grey[100]!,
               gap: 8,
-              activeColor: Colors.redAccent,
+              activeColor: const Color.fromARGB(255, 255, 162, 0),
               iconSize: 24,
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
               tabBackgroundColor: Colors.grey[100]!,
@@ -60,16 +60,16 @@ class _HomeScreenState extends State<HomeScreen> {
                   text: 'Home',
                 ),
                 GButton(
-                  icon: LineIcons.list,
+                  icon: LineIcons.cube,
                   text: 'Spaces',
                 ),
                 GButton(
-                  icon: LineIcons.book,
+                  icon: LineIcons.calendar,
                   text: 'Bookings',
                 ),
                 GButton(
-                  icon: LineIcons.user,
-                  text: 'Profile',
+                  icon: LineIcons.info,
+                  text: 'About',
                 ),
               ],
               selectedIndex: _selectedIndex,
