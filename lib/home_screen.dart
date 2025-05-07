@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:sbma_space_booking_mobile_app/about.dart';
+import 'package:sbma_space_booking_mobile_app/booking.dart';
+import 'package:sbma_space_booking_mobile_app/home.dart';
+import 'package:sbma_space_booking_mobile_app/space.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -15,22 +19,31 @@ class _HomeScreenState extends State<HomeScreen> {
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text('Home', style: optionStyle),
-    Text('Spaces', style: optionStyle),
-    Text('Bookings', style: optionStyle),
-    Text('About', style: optionStyle),
-  ];
+  // static const List<Widget> _widgetOptions = <Widget>[
+  //   Text('Home', style: optionStyle),
+  //   Text('Spaces', style: optionStyle),
+  //   Text('Bookings', style: optionStyle),
+  //   Text('About', style: optionStyle),
+  // ];
+
+final List<Widget> _pages = const [
+    HomePage(),
+    SpacesPage(),
+    BookingsPage(),
+    AboutPage(),
+];
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home Screen'),
+        title: const Text('UPSI Space'),
         centerTitle: true,
       ),
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
+      body: IndexedStack(
+        index: _selectedIndex,
+        children: _pages,
       ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
@@ -72,12 +85,17 @@ class _HomeScreenState extends State<HomeScreen> {
                   text: 'About',
                 ),
               ],
-              selectedIndex: _selectedIndex,
+              // selectedIndex: _selectedIndex,
+              // onTabChange: (index) {
+              //   setState(() {
+              //     _selectedIndex = index;
+              //   });
+              // },
               onTabChange: (index) {
-                setState(() {
-                  _selectedIndex = index;
-                });
+                setState(() => _selectedIndex = index);
               },
+
+
             ),
           ),
         ),

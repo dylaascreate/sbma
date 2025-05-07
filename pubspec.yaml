@@ -31,8 +31,9 @@ dependencies:
   flutter:
     sdk: flutter
 
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
+  line_awesome_flutter: ^2.0.0
+  flutter_screenutil: ^5.8.4
+  animated_theme_switcher: ^2.0.0
   cupertino_icons: ^1.0.8
   line_icons: ^2.0.3
   google_nav_bar: ^5.0.7
@@ -76,17 +77,17 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
-  #
+  fonts:
+    - family: SFProText
+      fonts:
+        - asset: fonts/Schyler-Regular.ttf
+        - asset: fonts/Schyler-Italic.ttf
+          style: italic
+    - family: Trajan Pro
+      fonts:
+        - asset: fonts/TrajanPro.ttf
+        - asset: fonts/TrajanPro_Bold.ttf
+          weight: 700
+  
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
