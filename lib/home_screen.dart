@@ -5,6 +5,7 @@ import 'package:sbma_space_booking_mobile_app/about.dart';
 import 'package:sbma_space_booking_mobile_app/booking.dart';
 import 'package:sbma_space_booking_mobile_app/home.dart';
 import 'package:sbma_space_booking_mobile_app/space.dart';
+import 'package:sbma_space_booking_mobile_app/search.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -14,11 +15,12 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 2;
 
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
+  // This is tab pages
   // static const List<Widget> _widgetOptions = <Widget>[
   //   Text('Home', style: optionStyle),
   //   Text('Spaces', style: optionStyle),
@@ -26,11 +28,13 @@ class _HomeScreenState extends State<HomeScreen> {
   //   Text('About', style: optionStyle),
   // ];
 
-final List<Widget> _pages = const [
-    HomePage(),
-    SpacesPage(),
-    BookingsPage(),
-    AboutPage(),
+  // This is single pages
+final List<Widget> _pages = const [ // List of pages to be displayed
+    SpacesPage(), // index 0
+    BookingsPage(), // index 1
+    HomePage(), // index 2 ---> showing this page first
+    SearchPage(), // index 3
+    AboutPage(), // index 4
 ];
 
 
@@ -41,7 +45,7 @@ final List<Widget> _pages = const [
         title: const Text('UPSI Space'),
         centerTitle: true,
       ),
-      body: IndexedStack(
+      body: IndexedStack( // Use IndexedStack to maintain the state of each page
         index: _selectedIndex,
         children: _pages,
       ),
@@ -58,7 +62,8 @@ final List<Widget> _pages = const [
         child: SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-            child: GNav(
+            child: GNav( // Google Navigation Bar
+              selectedIndex: _selectedIndex, // Set the selected index  
               rippleColor: Colors.grey[300]!,
               hoverColor: Colors.grey[100]!,
               gap: 8,
@@ -69,16 +74,20 @@ final List<Widget> _pages = const [
               color: Colors.black,
               tabs: const [
                 GButton(
-                  icon: LineIcons.home,
-                  text: 'Home',
-                ),
-                GButton(
                   icon: LineIcons.cube,
                   text: 'Spaces',
                 ),
                 GButton(
                   icon: LineIcons.calendar,
                   text: 'Bookings',
+                ),
+                GButton(
+                  icon: LineIcons.home,
+                  text: 'Home',
+                ),
+                GButton(
+                  icon: LineIcons.search,
+                  text: 'Search',
                 ),
                 GButton(
                   icon: LineIcons.info,
@@ -91,7 +100,7 @@ final List<Widget> _pages = const [
               //     _selectedIndex = index;
               //   });
               // },
-              onTabChange: (index) {
+              onTabChange: (index) { // Update the selected index and change the page
                 setState(() => _selectedIndex = index);
               },
 
