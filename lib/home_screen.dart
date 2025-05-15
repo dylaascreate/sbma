@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
 
+// Import your new Spaces page
+import 'spaces.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -15,11 +18,12 @@ class _HomeScreenState extends State<HomeScreen> {
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text('Home', style: optionStyle),
-    Text('Spaces', style: optionStyle),
-    Text('Bookings', style: optionStyle),
-    Text('Profile', style: optionStyle),
+  // Change this from const to final because Spaces() is not const
+  static final List<Widget> _widgetOptions = <Widget>[
+    const Center(child: Text('Home', style: optionStyle)),
+    const Spaces(), // <-- Show the Spaces page here
+    const Center(child: Text('Bookings', style: optionStyle)),
+    const Center(child: Text('Profile', style: optionStyle)),
   ];
 
   @override
@@ -29,9 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
         title: const Text('Home Screen'),
         centerTitle: true,
       ),
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
-      ),
+      body: _widgetOptions.elementAt(_selectedIndex),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           color: Colors.white,
