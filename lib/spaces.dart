@@ -6,17 +6,17 @@ class Spaces extends StatelessWidget {
   final List<Map<String, String>> spaces = const [
     {
       'name': 'Lecture Hall A',
-      'image': 'https://via.placeholder.com/150',
+      'image': 'assets/images/lecture_room.jpg',
       'location': 'Block A, Ground Floor',
     },
     {
       'name': 'Library Study Room',
-      'image': 'https://via.placeholder.com/150',
+      'image': 'assets/images/library_study_room.jpg',
       'location': 'Library, 2nd Floor',
     },
     {
       'name': 'Computer Lab 1',
-      'image': 'https://via.placeholder.com/150',
+      'image': 'assets/images/computer_lab.jpg',
       'location': 'Block B, Room 203',
     },
   ];
