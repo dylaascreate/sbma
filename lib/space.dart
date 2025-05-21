@@ -7,7 +7,7 @@ class SpacesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Spaces Page'),
+        title: const Text('Spaces'),
         centerTitle: true,
       ),
       body: Center(

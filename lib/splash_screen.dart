@@ -161,9 +161,9 @@ with TickerProviderStateMixin {
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                     colors: [
-                      Color.lerp(Colors.black, const Color.fromARGB(255, 255, 188, 31),
+                      Color.lerp(Colors.black, Colors.amber.shade800,
                           _backgroundAnimation.value)!,
-                      Color.lerp(Colors.black, const Color.fromARGB(255, 108, 76, 0),
+                      Color.lerp(Colors.black, Colors.amber.shade500,
                           _backgroundAnimation.value)!,
                     ],
                   ),

@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       title: 'UHSB Booking App',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.brown, fontFamily: 'Poppins'),
+        primarySwatch: Colors.amber, fontFamily: 'Poppins'),
         home: SplashScreen(),
     );
   }

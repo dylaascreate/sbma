@@ -68,7 +68,7 @@ class _SearchPageState extends State<SearchPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Search Spaces'),
+        title: const Text('Search'),
         centerTitle: true,
       ),
       body: Padding(
