@@ -43,7 +43,7 @@ final List<Widget> _pages = const [ // List of pages to be displayed
     return Scaffold(
       appBar: AppBar(
       leading: IconButton(
-        icon: const Icon(LineIcons.info),
+        icon: const Icon(LineIcons.infoCircle),
         onPressed: () {
           setState(() {
             _selectedIndex = 4; // Navigate to Search page

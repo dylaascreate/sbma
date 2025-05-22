@@ -56,7 +56,7 @@ import 'package:webview_flutter/webview_flutter.dart';
                       ),
                       const SizedBox(height: 20),
                       const Text(
-                        'SBMA Space Booking',
+                        'UHSB Booking App',
                         style: TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
