@@ -161,9 +161,9 @@ with TickerProviderStateMixin {
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                     colors: [
-                      Color.lerp(Colors.black, const Color.fromARGB(255, 255, 188, 31),
+                      Color.lerp(Colors.black, Colors.amber.shade800,
                           _backgroundAnimation.value)!,
-                      Color.lerp(Colors.black, const Color.fromARGB(255, 108, 76, 0),
+                      Color.lerp(Colors.black, Colors.amber.shade500,
                           _backgroundAnimation.value)!,
                     ],
                   ),
@@ -218,7 +218,7 @@ with TickerProviderStateMixin {
                             // ),
                             child: ClipOval( // Clip the image to a circle
                               child: Image.asset(
-                                'images/uhsb_logo.png',
+                                'assets/images/uhsb_logo.png',
                                 fit: BoxFit.cover,
                                 width: 100,  // Set width and height to ensure it's a circle
                                 height: 100,
