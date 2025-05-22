@@ -218,7 +218,7 @@ with TickerProviderStateMixin {
                             // ),
                             child: ClipOval( // Clip the image to a circle
                               child: Image.asset(
-                                'images/uhsb_logo.png',
+                                'assets/images/uhsb_logo.png',
                                 fit: BoxFit.cover,
                                 width: 100,  // Set width and height to ensure it's a circle
                                 height: 100,

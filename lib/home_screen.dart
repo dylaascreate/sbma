@@ -15,7 +15,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _selectedIndex = 2;
+  int _selectedIndex = 1;
 
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
@@ -31,8 +31,8 @@ class _HomeScreenState extends State<HomeScreen> {
   // This is single pages
 final List<Widget> _pages = const [ // List of pages to be displayed
     SpacesPage(), // index 0
-    BookingsPage(), // index 1
-    HomePage(), // index 2 ---> showing this page first
+    HomePage(), // index 1 ---> showing this page first
+    BookingsPage(), // index 2 
     SearchPage(), // index 3
     AboutPage(), // index 4
 ];
@@ -42,9 +42,28 @@ final List<Widget> _pages = const [ // List of pages to be displayed
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('UPSI Space'),
-        centerTitle: true,
+      leading: IconButton(
+        icon: const Icon(LineIcons.info),
+        onPressed: () {
+          setState(() {
+            _selectedIndex = 4; // Navigate to Search page
+          });
+        },
       ),
+      title: const Text('UPSI Space'),
+      centerTitle: true,
+      backgroundColor: const Color.fromARGB(255, 255, 162, 0),
+      actions: [
+        IconButton(
+          icon: const Icon(LineIcons.search),
+          onPressed: () {
+            setState(() {
+              _selectedIndex = 3; // Navigate to About page
+            });
+          },
+        ),
+      ],
+    ),
       body: IndexedStack( // Use IndexedStack to maintain the state of each page
         index: _selectedIndex,
         children: _pages,
@@ -78,20 +97,12 @@ final List<Widget> _pages = const [ // List of pages to be displayed
                   text: 'Spaces',
                 ),
                 GButton(
-                  icon: LineIcons.calendar,
-                  text: 'Bookings',
-                ),
-                GButton(
                   icon: LineIcons.home,
                   text: 'Home',
                 ),
                 GButton(
-                  icon: LineIcons.search,
-                  text: 'Search',
-                ),
-                GButton(
-                  icon: LineIcons.info,
-                  text: 'About',
+                  icon: LineIcons.calendar,
+                  text: 'Bookings',
                 ),
               ],
               // selectedIndex: _selectedIndex,
