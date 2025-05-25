@@ -1,9 +1,6 @@
     import 'package:flutter/material.dart';
     // import 'package:url_launcher/url_launcher.dart';
     import 'package:line_icons/line_icons.dart';
-    import 'package:sbma_space_booking_mobile_app/vr-web-view.dart';
-    import 'package:sbma_space_booking_mobile_app/map-web-view.dart';
-import 'package:webview_flutter/webview_flutter.dart';
 
     class AboutPage extends StatelessWidget {
       const AboutPage({super.key});
