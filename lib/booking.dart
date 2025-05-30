@@ -1,20 +1,10 @@
+// lib/screens/booking_screen.dart
+
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart'; // Import Provider
 import 'package:webview_flutter/webview_flutter.dart';
-
-// Booking data model
-class BookingItem {
-  final String title;
-  final String imagePath;
-  final String link;
-  final String? price;
-
-  BookingItem({
-    required this.title,
-    required this.imagePath,
-    required this.link,
-    this.price,
-  });
-}
+import '../controller/booking_controller.dart'; // Import your BookingController
+import '../model/booking_model.dart';
 
 class BookingsPage extends StatefulWidget {
   const BookingsPage({super.key});
@@ -24,99 +14,14 @@ class BookingsPage extends StatefulWidget {
 }
 
 class _BookingsPageState extends State<BookingsPage> {
-  final List<BookingItem> _bookings = [
-    BookingItem(
-      title: 'DEWAN SITC',
-      imagePath: 'assets/images/sitc.jpg',
-      link: 'https://tidycal.com/harizbadnan/dewansitc',
-      price: 'RM 100 - RM 180',
-    ),
-    BookingItem(
-      title: 'DEWAN SRI TANJONG',
-      imagePath: 'assets/images/seri_tanjung.jpg',
-      link: 'https://tidycal.com/harizbadnan/dewansritanjong',
-      price: 'RM 450 - RM 600',
-    ),
-    BookingItem(
-      title: 'DEWAN RAHMAN TALIB',
-      imagePath: 'assets/images/rahman_talib.jpg',
-      link: 'https://tidycal.com/harizbadnan/dewanrahmantalib',
-      price: 'RM 900 - RM 1200',
-    ),
-    BookingItem(
-      title: 'DEWAN SULUH BUDIMAN',
-      imagePath: 'assets/images/suluh_budiman.jpg',
-      link: 'https://tidycal.com/harizbadnan/dewansuluhbudiman',
-      price: 'RM 225 - RM 300',
-    ),
-    BookingItem(
-      title: 'AUDITORIUM',
-      imagePath: 'assets/images/auditorium.jpg',
-      link: 'https://tidycal.com/harizbadnan/auditorium',
-      price: 'RM 3450 - RM 4600',
-    ),
-    BookingItem(
-      title: 'Auditorium Utama',
-      imagePath: 'assets/images/utama.jpg',
-      link: 'https://tidycal.com/harizbadnan/auditorium-utama',
-      price: 'RM 1950 - RM 2600',
-    ),
-    BookingItem(
-      title: 'Auditorium 1',
-      imagePath: 'assets/images/utama_1.jpg',
-      link: 'https://tidycal.com/harizbadnan/auditorium-1',
-      price: 'RM 750 - RM 1000',
-    ),
-    BookingItem(
-      title: 'Auditorium 2',
-      imagePath: 'assets/images/utama_2.jpg',
-      link: 'https://tidycal.com/harizbadnan/auditorium-2',
-      price: 'RM 750 - RM 1000',
-    ),
-    BookingItem(
-      title: 'BILIK MESYUARAT UTAMA CANSELORI',
-      imagePath: 'assets/images/mesyuarat.jpg',
-      link: 'https://tidycal.com/harizbadnan/bilikmesyuaratcanselori',
-      price: 'RM 375 - RM 500',
-    ),
-    BookingItem(
-      title: 'BILIK MESYUARAT UTAMA SULUH BUDIMAN',
-      imagePath: 'assets/images/1.png',
-      link: 'https://tidycal.com/harizbadnan/bilikmesyuaratsuluhbudiman',
-      price: 'RM 225 - RM 300',
-    ),
-    BookingItem(
-      title: 'BILIK VIP CANSELORI',
-      imagePath: 'assets/images/1-1.png',
-      link: 'https://tidycal.com/harizbadnan/bilikvipcanselori',
-      price: 'RM 300 - RM 400',
-    ),
-    BookingItem(
-      title: 'BILIK VIP SULUH BUDIMAN',
-      imagePath: 'assets/images/2.png',
-      link: 'https://tidycal.com/harizbadnan/bilikvipsuluhbudiman',
-      price: 'RM 300 - RM 400',
-    ),
-    BookingItem(
-      title: 'BILIK KULIAH KAPASITI 50',
-      imagePath: 'assets/images/bil_50.jpg',
-      link: 'https://tidycal.com/harizbadnan/bilikkuliahkapasiti50',
-      price: 'RM 60 - RM 75',
-    ),
-    BookingItem(
-      title: 'DEWAN KULIAH A',
-      imagePath: 'assets/images/kul_A.jpg',
-      link: 'https://tidycal.com/harizbadnan/dewankuliaha',
-      price: 'RM 280 - RM 375',
-    ),
-    BookingItem(
-      title: 'BILIK KULIAH KAPASITI 10',
-      imagePath: 'assets/images/bil_10.jpg',
-      link: 'https://tidycal.com/harizbadnan/bilikkuliahkapasiti10',
-      price: 'RM 115 - RM 150',
-    ),
-    // Add other items here as needed
-  ];
+  @override
+  void initState() {
+    super.initState();
+    // Fetch bookings when the page is initialized
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<BookingController>(context, listen: false).fetchBookings();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -130,117 +35,170 @@ class _BookingsPageState extends State<BookingsPage> {
         ),
         centerTitle: true,
         elevation: 0.5,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.refresh),
+            onPressed: () {
+              Provider.of<BookingController>(context, listen: false).fetchBookings();
+            },
+          ),
+        ],
       ),
       body: SafeArea(
-        child: ListView.builder(
-          padding: const EdgeInsets.all(16),
-          itemCount: _bookings.length,
-          itemBuilder: (context, index) {
-            final booking = _bookings[index];
-            return Padding(
-              padding: const EdgeInsets.only(bottom: 20),
-              child: Card(
-                elevation: 6,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                clipBehavior: Clip.antiAlias,
+        child: Consumer<BookingController>( // Use Consumer to rebuild when BookingController notifies listeners
+          builder: (context, bookingController, child) {
+            if (bookingController.isLoading) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (bookingController.hasError) {
+              return Center(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start, // Align to start
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Image.asset(
-                      booking.imagePath,
-                      width: double.infinity,
-                      height: 220,
-                      fit: BoxFit.cover,
+                    const Text('Failed to load bookings.'),
+                    ElevatedButton(
+                      onPressed: () => bookingController.fetchBookings(),
+                      child: const Text('Try Again'),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
-                      child: Text(
-                        booking.title,
-                        style: const TextStyle(
-                          color: Colors.black87,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),
+                  ],
+                ),
+              );
+            } else if (bookingController.bookings.isEmpty) {
+              return const Center(
+                child: Text('No bookings found. Tap refresh to try again!'),
+              );
+            } else {
+              return ListView.builder(
+                padding: const EdgeInsets.all(16),
+                itemCount: bookingController.bookings.length, // Use data from controller
+                itemBuilder: (context, index) {
+                  final booking = bookingController.bookings[index]; // Use Booking model
+
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 20),
+                    child: Card(
+                      elevation: 6,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
                       ),
-                    ),
-                    Container(
-                      width: double.infinity,
-                      color: Colors.white,
-                      padding: const EdgeInsets.all(16),
+                      clipBehavior: Clip.antiAlias,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          // Price bubble
-                          Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                            decoration: BoxDecoration(
-                              color: Colors.grey.shade200,
-                              borderRadius: BorderRadius.circular(20),
+                          // Display image
+                          // Check if it's a network image or asset
+                          booking.imagePath.startsWith('http') || booking.imagePath.startsWith('https')
+                              ? Image.network(
+                                  booking.imagePath,
+                                  width: double.infinity,
+                                  height: 220,
+                                  fit: BoxFit.cover,
+                                  errorBuilder: (context, error, stackTrace) =>
+                                      const SizedBox(
+                                        height: 220,
+                                        child: Center(child: Icon(Icons.broken_image)),
+                                      ), // Fallback for network image errors
+                                )
+                              : Image.asset( // For local assets
+                                  booking.imagePath,
+                                  width: double.infinity,
+                                  height: 220,
+                                  fit: BoxFit.cover,
+                                  errorBuilder: (context, error, stackTrace) =>
+                                      const SizedBox(
+                                        height: 220,
+                                        child: Center(child: Icon(Icons.broken_image)),
+                                      ), // Fallback for asset errors
+                                ),
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
+                            child: Text(
+                              booking.title,
+                              style: const TextStyle(
+                                color: Colors.black87,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                              ),
                             ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
+                          ),
+                          Container(
+                            width: double.infinity,
+                            color: Colors.white,
+                            padding: const EdgeInsets.all(16),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
+                                // Price bubble
                                 Container(
-                                  padding: const EdgeInsets.all(6),
-                                  decoration: const BoxDecoration(
-                                    color: Color(0xFFFF6F00),
-                                    shape: BoxShape.circle,
+                                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey.shade200,
+                                    borderRadius: BorderRadius.circular(20),
                                   ),
-                                  child: const Icon(
-                                    Icons.attach_money,
-                                    color: Colors.white,
-                                    size: 18,
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Container(
+                                        padding: const EdgeInsets.all(6),
+                                        decoration: const BoxDecoration(
+                                          color: Color(0xFFFF6F00),
+                                          shape: BoxShape.circle,
+                                        ),
+                                        child: const Icon(
+                                          Icons.attach_money,
+                                          color: Colors.white,
+                                          size: 18,
+                                        ),
+                                      ),
+                                      const SizedBox(width: 8),
+                                      Text(
+                                        booking.price ?? 'N/A',
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                                const SizedBox(width: 8),
-                                Text(
-                                  booking.price ?? 'N/A',
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 14,
+                                const SizedBox(height: 16),
+                                SizedBox(
+                                  width: double.infinity,
+                                  child: ElevatedButton(
+                                    onPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (_) => WebViewPage(
+                                            title: booking.title,
+                                            url: booking.link,
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: const Color.fromARGB(255, 233, 185, 65),
+                                      padding: const EdgeInsets.symmetric(vertical: 12),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      textStyle: const TextStyle(fontSize: 16),
+                                    ),
+                                    child: const Text(
+                                      'Book Now',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
                                   ),
                                 ),
                               ],
                             ),
                           ),
-                          const SizedBox(height: 16),
-                          SizedBox(
-  width: double.infinity,
-  child: ElevatedButton(
-    onPressed: () {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (_) => WebViewPage(
-            title: booking.title,
-            url: booking.link,
-          ),
-        ),
-      );
-    },
-    style: ElevatedButton.styleFrom(
-      backgroundColor: const Color.fromARGB(255, 233, 185, 65),
-      padding: const EdgeInsets.symmetric(vertical: 12),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8),
-      ),
-      textStyle: const TextStyle(fontSize: 16),
-    ),
-    child: const Text(
-  'Book Now',
-  style: TextStyle(color: Colors.white),
-),
-  ),
-)
                         ],
                       ),
                     ),
-                  ],
-                ),
-              ),
-            );
+                  );
+                },
+              );
+            }
           },
         ),
       ),
