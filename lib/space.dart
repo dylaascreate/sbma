@@ -264,14 +264,14 @@ class _SpacesPageState extends State<SpacesPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
-              'Pilih Kategori:',
+              'Select Category:',
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 10),
             Row(
               children: [
                 ChoiceChip(
-                  label: const Text('Semua'),
+                  label: const Text('All'),
                   selected: selectedCategory == 'all',
                   onSelected: (_) {
                     setState(() => selectedCategory = 'all');
@@ -279,7 +279,7 @@ class _SpacesPageState extends State<SpacesPage> {
                 ),
                 const SizedBox(width: 8),
                 ChoiceChip(
-                  label: const Text('Dewan / Bilik'),
+                  label: const Text('Hall / Room'),
                   selected: selectedCategory == 'hall',
                   onSelected: (_) {
                     setState(() => selectedCategory = 'hall');
@@ -287,7 +287,7 @@ class _SpacesPageState extends State<SpacesPage> {
                 ),
                 const SizedBox(width: 8),
                 ChoiceChip(
-                  label: const Text('Sukan'),
+                  label: const Text('Sports'),
                   selected: selectedCategory == 'sport',
                   onSelected: (_) {
                     setState(() => selectedCategory = 'sport');

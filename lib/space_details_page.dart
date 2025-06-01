@@ -68,6 +68,9 @@ class SpaceDetailsPage extends StatelessWidget {
                       ElevatedButton.icon(
                         icon: const Icon(Icons.arrow_back),
                         label: const Text('Back to list'),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.orange,
+                        ),
                         onPressed: () {
                           Navigator.pop(context);
                         },
@@ -76,7 +79,7 @@ class SpaceDetailsPage extends StatelessWidget {
                         icon: const Icon(Icons.book_online),
                         label: const Text('Book Now'),
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.green,
+                          backgroundColor: Colors.orange,
                         ),
                         onPressed: () {
                           Navigator.push(
