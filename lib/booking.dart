@@ -26,11 +26,11 @@ class _BookingsPageState extends State<BookingsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 221, 220, 215),
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: const Text(
-          'Booking',
+          'Bookings',
           style: TextStyle(color: Colors.black87),
         ),
         centerTitle: true,
@@ -110,6 +110,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                       ), // Fallback for asset errors
                                 ),
                           Padding(
+                            
                             padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
                             child: Text(
                               booking.title,
@@ -143,11 +144,11 @@ class _BookingsPageState extends State<BookingsPage> {
                                           color: Color(0xFFFF6F00),
                                           shape: BoxShape.circle,
                                         ),
-                                        child: const Icon(
-                                          Icons.attach_money,
-                                          color: Colors.white,
-                                          size: 18,
-                                        ),
+                                        // child: const Icon(
+                                        //   Icons.attach_money_outlined,
+                                        //   color: Colors.white,
+                                        //   size: 18,
+                                        // ),
                                       ),
                                       const SizedBox(width: 8),
                                       Text(
