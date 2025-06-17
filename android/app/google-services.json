@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "775565206445",
+    "project_id": "upsispace",
+    "storage_bucket": "upsispace.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:775565206445:android:ad54b4bbe03a1dca203724",
+        "android_client_info": {
+          "package_name": "com.example.booking"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBlrtMCukjiH_m8uVCFTiOWEddXO1WjDhk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:775565206445:android:8100259af2c18eaa203724",
+        "android_client_info": {
+          "package_name": "com.example.sbma_space_booking_mobile_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBlrtMCukjiH_m8uVCFTiOWEddXO1WjDhk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
