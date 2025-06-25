@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'booking.dart'; // booking.dart has Bookingspage class
+import 'booking.dart'; // booking.dart has BookingsPage class
 
 class SpaceDetailsPage extends StatelessWidget {
   final Map<String, String> space;
@@ -10,19 +10,28 @@ class SpaceDetailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(space['name'] ?? 'Details'),
+        title: Text(space['title'] ?? 'Details'),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            if (space['image'] != null && space['image']!.isNotEmpty)
+            if (space['imagePath'] != null && space['imagePath']!.isNotEmpty)
               Image.asset(
-                space['image']!,
+                space['imagePath']!,
                 width: double.infinity,
                 height: 250,
                 fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) {
+                  return Container(
+                    height: 250,
+                    color: Colors.grey.shade300,
+                    child: const Center(
+                      child: Icon(Icons.broken_image, size: 40),
+                    ),
+                  );
+                },
               ),
             Padding(
               padding: const EdgeInsets.all(16.0),
@@ -30,7 +39,7 @@ class SpaceDetailsPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    space['name'] ?? '',
+                    space['title'] ?? '',
                     style: const TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
@@ -85,7 +94,7 @@ class SpaceDetailsPage extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const BookingsPage(), // ✅ Correct class name
+                              builder: (context) => const BookingsPage(),
                             ),
                           );
                         },
