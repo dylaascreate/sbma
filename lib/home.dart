@@ -1,8 +1,8 @@
-import 'package:flutter/gestures.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:sbma_space_booking_mobile_app/booking.dart';
 import 'package:sbma_space_booking_mobile_app/space.dart';
-import 'package:sbma_space_booking_mobile_app/homepage_details.dart';
+import 'package:sbma_space_booking_mobile_app/space_details_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -12,69 +12,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final List<Map<String, String>> spaces = [
-    {
-      'title': 'Auditorium',
-      'image': 'assets/images/upsi_audi.jpg',
-      'details': 'Capacity: 1165\nAir-conditioned\nProjector available',
-      'longDescription': 'The UPSI Auditorium is a premier venue for large events, '
-          'featuring state-of-the-art sound systems, comfortable seating for 1165 people '
-          'and advanced projection equipment. Ideal for conferences '
-          'and academic ceremonies.'
-    },
-    {
-      'title': 'DTC UPSI',
-      'image': 'assets/images/upsi_dtc.png',
-      'details': 'Capacity: 1500\nLarge Hall\nSpecialized equipment',
-      'longDescription': 'Dewan Tuanku Canselor (DTC) UPSI is a premier multipurpose hall with a capacity of 1500, '
-          'equipped with specialized facilities for large-scale events, academic functions and technology-driven programs. '
-          'The venue supports high-profile conferences, ceremonies and collaborative projects with advanced audiovisual systems and adaptable spaces.'
-    },
-    {
-      'title': 'Arena UPSI',
-      'image': 'assets/images/upsi_arena.jpg',
-      'details': 'Open space\nSports facilities\nIndoor sports event',
-      'longDescription': 'The UPSI Arena is a versatile sports complex suitable '
-          'for various indoor sports activities and events, with professional-grade '
-          'equipment and facilities. Features include futsal court, '
-          'badminton court and a fully-equipped gymnasium.'
-    },
-    {
-      'title': 'Panggung Percubaan',
-      'image': 'assets/images/upsi_pp.jpg',
-      'details': 'Theater space\nStage lighting\nSound system',
-      'longDescription': 'A dedicated theater space with professional lighting '
-          'and sound systems, ideal for performances, rehearsals and cultural events. '
-          'The space includes dressing rooms, a green room and flexible seating arrangements.'
-    },
-    {
-      'title': 'Bilik Seminar PTB',
-      'image': 'assets/images/seminar_ptb.png',
-      'details': 'Capacity: 80\nConference setup\nWhiteboard',
-      'longDescription': 'The PTB Seminar Room is designed for academic discussions '
-          'and presentations, equipped with modern conferencing facilities including '
-          'a projector, sound system and comfortable seating for up to 80 participants.'
-    },
-    {
-      'title': 'Meeting Room PTB',
-      'image': 'assets/images/meetingroom_ptb.png',
-      'details': 'Capacity: 30\nExecutive style\nLED Screen',
-      'longDescription': 'An executive meeting room with premium furnishings and '
-          'presentation equipment for professional gatherings. Features include a large '
-          'LED display, video conferencing capabilities and ergonomic seating.'
-    },
-    {
-      'title': 'IT Training Lab',
-      'image': 'assets/images/it_lab.png',
-      'details': '22 workstations\nSpecialized software\nLED Screen',
-      'longDescription': 'A fully-equipped computer lab with specialized software '
-          'for IT training and workshops. The lab features 22 high-performance workstations, '
-          'monitors at each station and specialized software for programming, '
-          'graphics design and data analysis.'
-    },
-  ];
-
   final ScrollController _scrollController = ScrollController();
+
+  Stream<QuerySnapshot> getPopularSpaces() {
+    return FirebaseFirestore.instance
+        .collection('bookings')
+        .where('isPopular', isEqualTo: true)
+        .snapshots();
+  }
 
   @override
   void dispose() {
@@ -86,12 +31,6 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      // appBar: AppBar(
-      //   title: const Text('UPSI Space Booking'),
-      //   centerTitle: true,
-      //   backgroundColor: Colors.transparent,
-      //   elevation: 0,
-      // ),
       body: Stack(
         children: [
           Container(
@@ -117,8 +56,8 @@ class _HomePageState extends State<HomePage> {
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 40,
-                            fontWeight: FontWeight.w800,
+                            fontSize: 36,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                         const SizedBox(height: 16),
@@ -127,7 +66,7 @@ class _HomePageState extends State<HomePage> {
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             color: Colors.white70,
-                            fontSize: 18,
+                            fontSize: 16,
                           ),
                         ),
                         const SizedBox(height: 30),
@@ -141,22 +80,16 @@ class _HomePageState extends State<HomePage> {
                             );
                           },
                           style: ElevatedButton.styleFrom(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 40, vertical: 16),
+                            padding: const EdgeInsets.symmetric(horizontal: 36, vertical: 14),
                             backgroundColor: const Color(0xFFEA923D),
                             foregroundColor: Colors.white,
-                            elevation: 3,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20),
                             ),
                           ),
                           child: const Text(
                             'BOOK SPACE',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                              letterSpacing: 0.5,
-                            ),
+                            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                           ),
                         ),
                       ],
@@ -165,12 +98,12 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               Container(
-                height: 300,
-                padding: const EdgeInsets.only(bottom: 40),
+                height: 260,
+                padding: const EdgeInsets.only(bottom: 32),
                 child: Column(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(35, 10, 20, 15),
+                      padding: const EdgeInsets.fromLTRB(20, 10, 20, 12),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -178,7 +111,7 @@ class _HomePageState extends State<HomePage> {
                             'Popular Spaces',
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: 20,
+                              fontSize: 18,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -195,7 +128,7 @@ class _HomePageState extends State<HomePage> {
                               'View More',
                               style: TextStyle(
                                 color: Color(0xFFFFA857),
-                                fontSize: 18,
+                                fontSize: 16,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -203,33 +136,40 @@ class _HomePageState extends State<HomePage> {
                         ],
                       ),
                     ),
-                    ScrollConfiguration(
-                      behavior: const ScrollBehavior().copyWith(
-                        dragDevices: {
-                          PointerDeviceKind.touch,
-                          PointerDeviceKind.mouse,
+                    SizedBox(
+                      height: 150,
+                      child: StreamBuilder<QuerySnapshot>(
+                        stream: getPopularSpaces(),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasError) {
+                            return const Center(child: Text('Error fetching data'));
+                          }
+                          if (snapshot.connectionState == ConnectionState.waiting) {
+                            return const Center(child: CircularProgressIndicator());
+                          }
+
+                          final docs = snapshot.data!.docs;
+
+                          return ListView.builder(
+                            controller: _scrollController,
+                            scrollDirection: Axis.horizontal,
+                            itemCount: docs.length,
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
+                            itemBuilder: (context, index) {
+                              final data = docs[index].data() as Map<String, dynamic>;
+                              return Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 6),
+                                child: _buildSpaceCard(
+                                  title: data['title'] ?? '',
+                                  imagePath: data['imagePath'] ?? '',
+                                  description: data['description'] ?? '',
+                                  capacity: data['capacity'] ?? '',
+                                  space: data.map((k, v) => MapEntry(k, v.toString())),
+                                ),
+                              );
+                            },
+                          );
                         },
-                      ),
-                      child: SizedBox(
-                        height: 187,
-                        child: ListView.builder(
-                          controller: _scrollController,
-                          scrollDirection: Axis.horizontal,
-                          padding: const EdgeInsets.symmetric(horizontal: 30),
-                          itemCount: spaces.length,
-                          itemBuilder: (context, index) {
-                            final space = spaces[index];
-                            return Padding(
-                              padding: const EdgeInsets.only(right: 4, left: 1),
-                              child: _buildSpaceCard(
-                                space['title']!,
-                                space['image']!,
-                                space['details']!,
-                                space['longDescription']!,
-                              ),
-                            );
-                          },
-                        ),
                       ),
                     ),
                   ],
@@ -242,74 +182,70 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _buildSpaceCard(String title, String imagePath, String details, String longDescription) {
+  Widget _buildSpaceCard({
+    required String title,
+    required String imagePath,
+    required String description,
+    required String capacity,
+    required Map<String, String> space,
+  }) {
     return GestureDetector(
       onTap: () {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => HomeDetailsPage(
-              home: {
-                'name': title,
-                'image': imagePath,
-                'description': details,
-                'longDescription': longDescription,
-              },
-            ),
+            builder: (context) => SpaceDetailsPage(space: space),
           ),
         );
       },
       child: SizedBox(
-        width: 180,
+        width: 150,
         child: Card(
           elevation: 5,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              ClipRRect(
+                borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
+                child: Image.asset(
+                  imagePath,
+                  height: 75,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) =>
+                      const Icon(Icons.broken_image, size: 40),
+                ),
+              ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(10, 12, 10, 8),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 child: Text(
                   title,
                   style: const TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w900,
+                    fontSize: 13,
+                    fontWeight: FontWeight.bold,
                   ),
-                  textAlign: TextAlign.center,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
-              Expanded(
-                child: ClipRRect(
-                  borderRadius: const BorderRadius.vertical(
-                    top: Radius.circular(0),
-                    bottom: Radius.circular(0),
-                  ),
-                  child: Image.asset(
-                    imagePath,
-                    fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) =>
-                    const Center(child: Icon(Icons.broken_image)),
-                  ),
-                ),
-              ),
-              Container(
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.7),
-                  borderRadius: const BorderRadius.vertical(
-                    bottom: Radius.circular(12),
-                  ),
-                ),
-                child: Text(
-                  details,
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 14,
-                  ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: Row(
+                  children: [
+                    const Icon(Icons.people, size: 12, color: Colors.grey),
+                    const SizedBox(width: 4),
+                    Expanded(
+                      child: Text(
+                        capacity,
+                        style: const TextStyle(fontSize: 11, color: Colors.grey),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],
