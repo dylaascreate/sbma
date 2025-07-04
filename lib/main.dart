@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart'; // ✅ Add this
+import 'package:firebase_core/firebase_core.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:webview_flutter_android/webview_flutter_android.dart';
 
@@ -31,7 +31,15 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.amber,
+        // scaffoldBackgroundColor: const Color(0xFFFFF8E1), // light amber
         fontFamily: 'Poppins',
+
+        colorScheme: ColorScheme.fromSwatch(
+          primarySwatch: Colors.amber,
+          accentColor: Colors.amber,
+        ).copyWith(
+          secondary: const Color.fromARGB(255, 171, 128, 0),
+        ),
       ),
       routes: {
         '/home': (context) => HomeScreen(),
